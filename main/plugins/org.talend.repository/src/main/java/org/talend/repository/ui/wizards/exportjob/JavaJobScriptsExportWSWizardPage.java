@@ -461,11 +461,12 @@ public class JavaJobScriptsExportWSWizardPage extends JavaJobScriptsExportWizard
                 if (exportType == JobExportType.ROUTE || exportType == JobExportType.SERVICE) {
                     continue;
                 } else if (exportType.equals(JobExportType.OSGI)) {
-                    if (isESBJob) {
+                    if (isESBJob && "OSGI".equals(getProcessItem().getProperty().getAdditionalProperties().get(TalendProcessArgumentConstant.ARG_BUILD_TYPE))) {
                         exportTypeCombo.add(exportType.label);
                     }
                 } else if (exportType.equals(JobExportType.MSESB)) {
-                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBMicroService.class) && canESBMicroServiceJob) {
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBMicroService.class) && canESBMicroServiceJob &&
+                             "REST_MS".equals(getProcessItem().getProperty().getAdditionalProperties().get(TalendProcessArgumentConstant.ARG_BUILD_TYPE))) {
                         exportTypeCombo.add(exportType.label);
                     } else {
                         // reset export type to POJO
@@ -474,7 +475,8 @@ public class JavaJobScriptsExportWSWizardPage extends JavaJobScriptsExportWizard
                         }
                     }
                 } else if (exportType.equals(JobExportType.MSESB_IMAGE)) {
-                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBMicroService.class) && canESBMicroServiceJob) {
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBMicroService.class) && canESBMicroServiceJob&&
+                             "REST_MS".equals(getProcessItem().getProperty().getAdditionalProperties().get(TalendProcessArgumentConstant.ARG_BUILD_TYPE))) {
                         if(canESBMicroServiceDockerImage) {
                             exportTypeCombo.add(exportType.label);
                         }
