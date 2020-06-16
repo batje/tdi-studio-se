@@ -44,6 +44,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IESBService;
@@ -931,7 +932,7 @@ public class DefaultRunProcessService implements IRunProcessService {
             IFolder targetFolder = mainProject.getFolder(refPath.removeLastSegments(1));
 
             if (!targetFolder.exists()) {
-                targetFolder.create(true, false, progressMonitor);
+                ResourceUtils.createFolder(targetFolder);
             }
             if (codeFile.getLocation().removeLastSegments(1).equals(targetFolder.getLocation())) {
                 continue;
